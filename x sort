@@ -1,0 +1,126 @@
+# Datei:   xsort.py
+# Version: 2.0
+# Autor:   Th. Beyer
+# Datum:   30.01.18
+
+
+from win32ui import MessageBox
+from sys import setrecursionlimit
+
+class Xsort:
+    def __init__(self):
+        setrecursionlimit(2000)
+   
+
+    def selectionsort(self,feld):	
+        anzahl=len(feld)
+        # erstes Feldelement feld[0]
+        # letztes Feldelement feld[anzahl-1]
+        # Hier folgt der Algorithmus Selectionsort
+        for i in range (0, anzahl):
+            n = i
+            for j in range(i, anzahl):
+                if feld[j] < feld[n]:
+                    feld[n] = feld[j]
+            feld[i],feld[n]=feld[n],feld[i]
+
+    def insertionsort(self,feld):
+        anzahl=len(feld)            
+        # erstes Feldelement feld[0]
+        # letztes Feldelement feld[anzahl-1]
+        # Hier folgt der Algorithmus Insertionsort
+        for i in range (1, anzahl):
+            j = i
+            while feld[j] < feld[j-1] and j > 0:
+                temp = feld[j]
+                feld[j] = feld[j-1]
+                feld[j-1] = temp
+                j = j-1
+                
+            
+            
+    def bubblesort(self,feld):
+        anzahl=len(feld)
+        # erstes Feldelement feld[0]
+        # letztes Feldelement feld[anzahl-1]
+        # Hier folgt der Algorithmus Bubblesort
+        for j in range (anzahl):
+            for i in range (anzahl-1,0,-1):
+                if feld[i] < feld[i-1]:
+                    temp = feld[i]
+                    feld[i] = feld[i-1]
+                    feld[i-1] = temp
+                
+            
+                
+                
+                
+                
+                
+                
+                 
+       
+
+    def quicksort(self,feld):
+        anzahl=len(feld)
+        self.qs(feld, 0,anzahl-1)
+
+            
+    def qs(self,feld,l,r):
+        anzahl=len(feld)
+        w=feld[int(round((r+l)/2))]
+        #w=feld[l]
+
+        i=l
+        j=r
+
+        while i <= j:
+            while feld[i] < w :
+                i=i+1
+            while feld[j] > w :
+                j=j-1
+            if i <= j:
+                h=feld[i]
+                feld[i]=feld[j]
+                feld[j]=h
+                i=i+1
+                j=j-1
+                print w
+
+        if j > l and anzahl > 1 :
+            self.qs(feld,l,j)
+            print w
+
+        if i < r and anzahl > 1 :
+            self.qs(feld,i,r)
+            
+
+    def mergesort(self,feld):
+        self.merge(feld,feld[:],0,len(feld)-1) #feld[:] liefert Kopie von feld
+
+    def merge(self,feld,hilf,links,rechts):
+        if links<rechts:
+            mitte = (rechts+links)/2
+            
+            
+            self.merge(feld,hilf,links,mitte)
+            self.merge(feld,hilf,mitte+1,rechts)
+            
+            for i in range(mitte,links-1,-1):
+                hilf[i]=feld[i]
+            for i in range(mitte+1,rechts+1):
+                hilf[(mitte+1)+rechts-i]=feld[i]
+                
+                
+
+            l = links
+            r = rechts
+            
+            for i in range(links,rechts+1):
+                if hilf[l]<hilf[r]:
+                    feld[i]=hilf[l]
+                    l = l+1
+                else:
+                    feld[i]=hilf[r]
+                    r = r-1
+                
